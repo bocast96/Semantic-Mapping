@@ -22,14 +22,15 @@ function [Pts, rgb] = removeLargestPlain(Pts,rgb, threshold, iterations)
         AC = C - A;
         N = cross(AB, AC)';
         d = (-A) * N;
-
         % find points in plain
         tmp_plain = [];
         for i = 1:len
            pt = Pts(i,:);
            tao = ((pt * N) + d) / norm(N); % check math with TA
+           %D = pt - A;
+           %tao = dot(N,D);
 
-           if tao <= threshold
+           if abs(tao) <= threshold
                tmp_plain = [tmp_plain, i];
            end
         end
@@ -42,9 +43,11 @@ function [Pts, rgb] = removeLargestPlain(Pts,rgb, threshold, iterations)
         t = t+1;
     end
 
+    %plane = Pts(largest_plain,:);
+    %plane_rgb = rgb(largest_plain,:);
+    %pcshow(plane, plane_rgb);
+    
     % removing plain
     Pts(largest_plain, :) = [];
     rgb(largest_plain, :) = [];
-
-    pcshow(Pts, rgb);
 end

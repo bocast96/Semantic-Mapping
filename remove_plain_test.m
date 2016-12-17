@@ -8,13 +8,19 @@ id = imcrop(id, [100,100,300,300]);
 [pcx, pcy, pcz, r, g, b, D_, X, Y,validInd] = depthToCloud_full_RGB(id, i, 'params/calib_xtion.mat');
 Pts = [pcx pcy pcz];
 rgb = [r g b]/255;
+%pcshow(Pts, rgb);
+
+
+[Pts, rgb] = removeLargestPlain(Pts, rgb, 15, 20);
 pcshow(Pts, rgb);
 
 %%
-[Pts, rgb] = removeLargestPlain(Pts, rgb, 0.1, 100);
-%%
-figure;
-[Pts, rgb] = removeLargestPlain(Pts, rgb, 0.1, 10);
-%%
-figure;
+[Pts, rgb] = removeLargestPlain(Pts, rgb, 15, 20);
 pcshow(Pts, rgb);
+
+%%
+[Pts, rgb] = outlier_rejection(Pts, rgb, 160);
+pcshow(Pts, rgb);
+
+
+
