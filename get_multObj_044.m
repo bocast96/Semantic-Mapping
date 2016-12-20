@@ -1,6 +1,6 @@
-function [point_clouds] = get_multObj_035(start, finish)
+function [point_clouds] = get_multObj_044(start, finish)
     % update your path
-    path = 'Data\MultipleObjects\scene_035\frames\frame_';
+    path = 'Data\MultipleObjects\scene_044\frames\frame_';
     len = finish - start + 1;
     point_clouds = cell(len,2);
     cur = start;
@@ -8,13 +8,13 @@ function [point_clouds] = get_multObj_035(start, finish)
         num = num2str(cur);
         i = imread(strcat(path, num, '_rgb.png'));
         id = imread(strcat(path, num, '_depth.png'));
-        if cur < 390
-            x = 100;
+        if cur < 350
+            x = 0; y = 550;
         else
-            x = 200;
+            x = 100; y = 400;
         end
         
-        rec = [x, 0, 350, 350];
+        rec = [x, 0, 500, y];
         i = imcrop(i, rec);
         id = imcrop(id, rec);
         
@@ -31,7 +31,7 @@ function [point_clouds] = get_multObj_035(start, finish)
         %pcshow(Pts, rgb);
 
         %%
-        [Pts, rgb] = outlier_rejection(Pts, rgb, 350);
+        [Pts, rgb] = outlier_rejection(Pts, rgb, 300);
         %pcshow(Pts, rgb);
         
         point_clouds{idx, 1} = Pts;
