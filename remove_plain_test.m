@@ -1,9 +1,9 @@
 clear; clc;
-i = imread('Data\SingleObject\scene_022\frames\frame_0_rgb.png');
-id = imread('Data\SingleObject\scene_022\frames\frame_0_depth.png');
+i = imread('Data\MultipleObjects\scene_035\frames\frame_450_rgb.png');
+id = imread('Data\MultipleObjects\scene_035\frames\frame_450_depth.png');
 
-i = imcrop(i, [50, 0, 400, 400]);
-id = imcrop(id, [50, 0, 400,400]);
+i = imcrop(i, [200, 0, 350, 350]);
+id = imcrop(id, [200, 0, 350,350]);
 imshow(i);
 
 %%
@@ -13,15 +13,15 @@ rgb = [r g b]/255;
 pcshow(Pts, rgb);
 
 %%
-[Pts, rgb] = removeLargestPlain(Pts, rgb, 15, 20);
+[Pts, rgb] = removeLargestPlain(Pts, rgb, 20, 20);
 pcshow(Pts, rgb);
 
 %%
-[Pts, rgb] = removeLargestPlain(Pts, rgb, 15, 20);
+[Pts, rgb] = removeLargestPlain(Pts, rgb, 20, 20);
 pcshow(Pts, rgb);
 
 %%
-[Pts, rgb] = outlier_rejection(Pts, rgb, 250);
+[Pts, rgb] = outlier_rejection(Pts, rgb, 350);
 pcshow(Pts, rgb);
 
 

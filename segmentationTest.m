@@ -3,10 +3,9 @@ clear; clc;
 % update your path
 path = 'Data\SingleObject\scene_000\';
 in = 'frames\';
-out = 'segmented_2d\';
 label = 'frame_';
 labEnd = '_rgb.png';
-point_clouds = cell(1,390);
+point_clouds = cell(2,390);
 bwThresh = 0.2;
 %%
 for i = 0:0
@@ -26,7 +25,6 @@ for i = 0:0
     i_msk = rgb2gray(i_seg);
     i_msk = imbinarize(i_msk,bwThresh);
     imf = imfill(i_msk, 'holes');
-    %imf = imopen(imf,strel('line', 5,2));
     imf = bwareafilt(imf,1);
     imshow(imf);
     %%
@@ -47,7 +45,8 @@ for i = 0:0
     [pcx, pcy, pcz, r, g, b, D_, X, Y,validInd] = depthToCloud_full_RGB(id, im, 'params/calib_xtion.mat');
     %%
     Pts = [pcx pcy pcz];
-    %point_clouds{i+1} = [pcx, pcy, pcz, r, g, b, D_, X, Y,validInd];
+    point_clouds{1,i+1} = [pcx, pcy, pcz];
+    point_clouds{2,i+1} = [r g b];
     
     %% displaying points
     pcshow(Pts,[r g b]/255);
