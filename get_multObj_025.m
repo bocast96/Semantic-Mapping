@@ -1,10 +1,11 @@
-function [point_clouds] = get_multObj_025(start, finish)
+function [point_clouds] = get_multObj_025(start, finish, step)
     % update your path
     path = 'Data\MultipleObjects\scene_025\frames\frame_';
     len = finish - start + 1;
     point_clouds = cell(len,2);
     cur = start;
-    for idx = 1:len
+    
+    for idx = 1:step:len
         num = num2str(cur);
         i = imread(strcat(path, num, '_rgb.png'));
         id = imread(strcat(path, num, '_depth.png'));

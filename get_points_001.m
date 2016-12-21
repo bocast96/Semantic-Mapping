@@ -1,11 +1,13 @@
-function [point_clouds] = get_points_001()
+function [point_clouds] = get_points_001(start, finish, step)
    % Segmenting object 000
     % update your path
     path = 'Data\SingleObject\scene_001\frames\image_';
-    point_clouds = cell(36,2);
+    len = finish - start + 1;
+    point_clouds = cell(len,2);
+    cur = start;
     
-    for idx = 0:35
-        num = num2str(idx);
+    for idx = 1:step:len
+        num = num2str(cur);
         i = imread(strcat(path, num, '_rgb.png'));
         id = imread(strcat(path, num, '_depth.png'));
         
@@ -29,8 +31,9 @@ function [point_clouds] = get_points_001()
         [Pts, rgb] = outlier_rejection(Pts, rgb, 160);
         %pcshow(Pts, rgb);
         
-        point_clouds{idx+1, 1} = Pts;
-        point_clouds{idx+1, 2} = rgb;
+        point_clouds{idx, 1} = Pts;
+        point_clouds{idx, 2} = rgb;
+        cur = cur+1;
         clear Pts && rgb && i && id && pcx && pcy && pcz && r && g && b
     end
     

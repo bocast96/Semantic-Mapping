@@ -5,7 +5,7 @@ function [ homogeneousMatrix ] = icpPt2Plane( currPtCloud, ptCloudAcc )
     origPtCloud = currPtCloud;
     homogeneousMatrix = eye(4,4);
     
-    for j = 0:20
+    for j = 0:40
               
         %currPtCloud = pctransform(currPtCloud, tform);
         sz = numel(currPtCloud.Location(:,1));

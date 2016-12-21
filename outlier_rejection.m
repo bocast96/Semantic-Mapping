@@ -1,4 +1,6 @@
 function [Pts, rgb] = outlier_rejection(Pts, rgb, max_distance)
+    % rejects points farther than some distance from the center of density of
+    % the cloud
     meanx = mean(Pts(:,1));
     meany = mean(Pts(:,2));
     meanz = mean(Pts(:,3));

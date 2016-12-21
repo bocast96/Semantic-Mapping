@@ -1,10 +1,12 @@
-function [point_clouds] = get_points_002()
+function [point_clouds] = get_points_002(start, finish, step)
     % update your path
     path = 'Data\SingleObject\scene_002\frames\frame_';
-    point_clouds = cell(376,2);
+    len = finish - start + 1;
+    point_clouds = cell(len,2);
+    cur = start;
     
-    for idx = 0:376
-        num = num2str(idx);
+    for idx = 1:step:len
+        num = num2str(cur);
         i = imread(strcat(path, num, '_rgb.png'));
         id = imread(strcat(path, num, '_depth.png'));
         
@@ -28,8 +30,9 @@ function [point_clouds] = get_points_002()
         [Pts, rgb] = outlier_rejection(Pts, rgb, 160);
         %pcshow(Pts, rgb);
         
-        point_clouds{idx+1, 1} = Pts;
-        point_clouds{idx+1, 2} = rgb;
+        point_clouds{idx, 1} = Pts;
+        point_clouds{idx, 2} = rgb;
+        cur = cur+1;
         clear Pts && rgb && i && id && pcx && pcy && pcz && r && g && b
     end
     
